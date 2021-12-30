@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // const courses = [
+        //     {
+        //         id: 1,
+        //         name: 'a',
+        //     },
+        //     {   
+        //         id: 2,
+        //         name: 'b',
+        //     },
+        // ]
+        // // babel chi ho tro 1 the html wrap cac the con lai
+        // const jsx = (
+        //     <ul>
+        //         {courses.map((course, index) => 
+        //             <li key={index}>{course.name}</li>
+        //         )}
+        //     </ul>
+        // )
+
+        // // // another example:
+        // // const jsx = (
+        // //     <React.Fragment>
+        // //         <h1>Heading 1</h1>
+        // //         <h2>Heading 2</h2>
+        // //     </React.Fragment>
+        // // )
+        // // // same way writing
+        // // const jsx = React.createElement(React.Fragment, null,
+        // //     React.createElement('h1', null, 'Heading 1'),
+        // //     React.createElement('h2', null, 'Heading 2'),
+        // // )
+        // ReactDOM.render(jsx, document.getElementById('root'))
+
+
+        // --------------------------------------------------------- //
+
+        // // PostItem.js
+        // // cach su dung props
+        // function PostItem(props){
+        // // // su dung tuong tu voi destructuring (co the truyen default param)
+        // // function PostItem({title, description, publishedAt}){
+        //     if(typeof props.callback === 'function')
+        //         props.callback(Math.random())
+        //     return(
+        //         <div className="post-item">
+        //             <img src="" alt="ok"/>
+        //             <h2 className="post-title">{props.title}</h2>
+        //             <p className="post-desc">{props.description}</p>
+        //             <p className="post-published">{props.publishedAt}</p>
+        //         </div>
+        //     )
+        // }
+        // // App.js
+        // function App(){
+        //     return(
+        //         <div id='wrapper'>
+        //             <PostItem 
+        //                 title="hoc javascript"
+        //                 description="learning javascript"
+        //                 publishedAt="1 ngay truoc"
+        //                 callback={(param)=> console.log(param)}/>
+        //         </div>
+        //     )
+        // }
+
+        // // index.js
+        // ReactDOM.render(<App/>, document.getElementById('root'))
+
+
+        // --------------------------------------------------------- //
+        
+        // // small example
+        // const courses = [
+        //     {
+        //     "id": 2,
+        //     "title": "HTML, CSS từ Zero đến Hero",
+        //     "slug": "html-css",
+        //     "description": "Trong khóa này chúng ta sẽ cùng nhau xây dựng giao diện 2 trang web là The Band & Shopee.",
+        //     "thumbnail": "courses/2.png",
+        //     "content": null,
+        //     "preview_origin": "youtube",
+        //     "preview_youtube_id": "R6plN3FvzFY",
+        //     "preview_video": null,
+        //     "language": "html",
+        //     "syntax_highlight": "language-html",
+        //     "level": "Trình độ cơ bản",
+        //     "priority": 10,
+        //     "students_count": 100992,
+        //     "deleted_at": null,
+        //     "created_at": "2020-04-10T14:23:13.000000Z",
+        //     "updated_at": "2021-12-28T03:41:46.000000Z",
+        //     "thumbnail_cdn": "https://cdn.fullstack.edu.vn/f8-learning/courses/2.png",
+        //     "preview_video_cdn": ""
+        //     },
+        //     {
+        //     "id": 1,
+        //     "title": "JavaScript Cơ Bản",
+        //     "slug": "javascript-co-ban",
+        //     "description": "Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với hơn 100 bài học và có bài tập thực hành sau mỗi bài học.",
+        //     "thumbnail": "courses/1.png",
+        //     "content": null,
+        //     "preview_origin": "youtube",
+        //     "preview_youtube_id": "0SJE9dYdpps",
+        //     "preview_video": null,
+        //     "language": "javascript",
+        //     "syntax_highlight": "language-javascript",
+        //     "level": "Trình độ cơ bản",
+        //     "priority": 30,
+        //     "students_count": 61415,
+        //     "deleted_at": null,
+        //     "created_at": "2020-06-10T14:23:13.000000Z",
+        //     "updated_at": "2021-12-28T03:40:41.000000Z",
+        //     "thumbnail_cdn": "https://cdn.fullstack.edu.vn/f8-learning/courses/1.png",
+        //     "preview_video_cdn": ""
+        //     },
+        // ]
+        // const CourseItem = ({ props, onClick }) => (
+        //     <div>
+        //         <h2 onClick={() => onClick(props)}>{props.title}</h2>
+        //         <img src={props.thumbnail_cdn}/>
+        //         <p>{props.description}</p>
+        //         <h2>{props.students_count}</h2>
+        //     </div>
+        // )
+        // function App(){
+
+        //     //use Callback
+        //     const handleClick = (course) => {
+        //         console.log(course.title)
+        //     }
+        //     return(
+        //         <div id="wrapper">
+        //             {courses.map(course => (
+        //                 <CourseItem
+        //                     key={course.id}
+        //                     props={course}
+        //                     onClick={handleClick}
+        //                 />
+        //             ))}
+        //         </div>
+        //     )
+        // }
+        // ReactDOM.render(<App/>, document.getElementById('root'))
+
+
+        // --------------------------------------------------------- //
+        
+        // // create Component example
+        // // const Form = {
+        // //     Input(){ return <input type="text"/> }
+        // // }
+        // // function App(){
+        // //     const type = 'Input'
+        // //     const Component = Form[type]
+        // //     return(
+        // //         <div id="wrapper">
+        // //             <Component/>
+        // //         </div>
+        // //     )
+        // // }
+        
+        // // another example
+        // function Button({ title, href, onClick }){
+        //     let Component = 'button'
+        //     const props = {}
+        //     if (href){
+        //         Component = 'a'
+        //         props.href = href
+        //     }
+        //     if (onClick) props.onClick = onClick
+        //     return(
+        //         <Component {...props}>{title}</Component>
+        //     )
+        // }
+        // function App({ param }){
+        //     // boolean, null, undefined khong render
+        //     let tryBooleanVariable = true
+        //     return(
+        //         <div id="wrapper">
+        //             <h1>{param || 'Default value'}</h1>
+        //             {tryBooleanVariable && <h1>Wellcome</h1>}
+        //             <Button
+        //                 title="OK"
+        //                 href="https://www.google.com"
+        //                 // thu thap thong tin nguoi dung co click vao button khong
+        //                 onClick={()=>console.log(1)}
+        //             />
+        //         </div>
+        //     )
+        // }
+        // ReactDOM.render(<App param='Test param'/>, document.getElementById('root'))
+
+
+        // --------------------------------------------------------- //
+
+        // // more about props
+        // function Input({ label, ...inputProps }){
+        //     return(
+        //         <div>
+        //             <label>{label}</label>
+        //             <input {...inputProps}/>
+        //         </div>
+        //     )
+        // }
+        // function App(){
+        //     return(
+        //         <div id="wrapper">
+        //             <Input
+        //                 label="OK"
+        //                 // props append here
+        //                 type='text' placeholder='Enter name...'
+        //                 title='this is input'
+        //                 onFocus={()=>console.log(1)} 
+        //             />
+        //         </div>
+        //     )
+        // }
+
+        // children props
+        function Button({ children }){
+            return(<div><button>{children}</button></div>)
+        }
+        function List({ data, children }){
+            return(
+                // <ul>{data.map(children)}</ul>
+                <ul> 
+                    {data.map((...props) => children(...props))}
+                </ul>
+            )
+        }
+        function App(){
+            const cars = ['1', '2']
+            return(
+                <div id="wrapper">
+                    <Button>OK</Button>
+                    <List data={cars}>
+                        {item => <li key={item}>{item}</li>}
+                    </List>
+                </div>
+            )
+        }
+        ReactDOM.render(<App/>, document.getElementById('root'))
+    </script>
+</body>
+</html>
