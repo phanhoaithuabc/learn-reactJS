@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+</head>
+<body>
+    <div id='root'></div>
+    <script>
+        // DOM
+        const root = document.getElementById('root');
+        const h1DOM = document.createElement('h1');
+
+        h1DOM.innerText = 'hello'
+        h1DOM.id = 'heading'
+        h1DOM.className = 'heading'
+        Object.assign(h1DOM.style, {
+            color: 'red',
+        })
+
+        console.log(h1DOM)
+        root.appendChild(h1DOM)
+
+        // react element -> react-DOM
+        const h1React = React.createElement('h1', {
+            title: 'hello',
+            className: 'heading'
+        }, 'HELLO')
+        
+
+        // -------------------------------------------------- //
+
+
+        // DOM
+        const ulDOM = document.createElement('ul')
+        ulDOM.id = 'ul-id'
+        ulDOM.style = 'color: red; font-size:20px'
+
+        const liDOM1 = document.createElement('li')
+        liDOM1.innerText = 'JavaScript'
+        liDOM1.id = 'li-1'
+        ulDOM.appendChild(liDOM1)
+
+        const liDOM2 = document.createElement('li')
+        liDOM2.innerText = 'ReactJS'
+
+        ulDOM.appendChild(liDOM2)
+        document.body.appendChild(ulDOM)
+        
+        // react
+        const ulReact = React.createElement('ul',
+            {
+                id: 'ul-id',
+                style: 'color: red; font-size:30px',
+            },
+            React.createElement('li', { id: 'li-1' }, 'JavaScript'),
+            React.createElement('li', null, 'ReactJS')
+        )
+        console.log(ulReact)
+
+        // another example
+        const postItem = React.createElement('div', 
+            { 
+                className: 'post-item',
+            },
+            React.createElement('h2', { title: 'hoc react' }, 'HEADING 1'),
+            React.createElement('p', null, 'ReactJS')
+        )
+
+        // reactDOM
+        ReactDOM.render(postItem, root)
+    </script>
+</body>
+</html>
