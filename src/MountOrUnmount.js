@@ -329,18 +329,18 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 // ---------------------------------------------------------------------- //
 
 
-// khai niem props: truyen du lieu giua cac component
-// useCallback example
-import { memo } from "react";
-function MountOrUnmount({onIncrease}) {
-    console.log('re-render')
-    return <> 
-        { /* dc babel chuyen doi thanh react fragment */ }
-        <h1>hello memo and callback</h1>
-        <button onClick={onIncrease}>up</button>
-    </>
-}
-export default memo(MountOrUnmount)
+// // khai niem props: truyen du lieu giua cac component
+// // useCallback example
+// import { memo } from "react";
+// function MountOrUnmount({onIncrease}) {
+//     console.log('re-render')
+//     return <> 
+//         { /* dc babel chuyen doi thanh react fragment */ }
+//         <h1>hello memo and callback</h1>
+//         <button onClick={onIncrease}>up</button>
+//     </>
+// }
+// export default memo(MountOrUnmount)
 
 
 // export default MountOrUnmount

@@ -1,7 +1,6 @@
 // import logo from './logo.svg';
-import './App.css';
-import { useCallback, useState } from 'react';
-import './App.css';
+import { useCallback, useState, useMemo, createContext,
+  useReducer, useRef, useImparativeHandle } from 'react';
 import MountOrUnmount from './MountOrUnmount';
 
 
@@ -257,7 +256,7 @@ import MountOrUnmount from './MountOrUnmount';
 //       {/* component MountOrUnmount dc re-render nhieu lan => use memo to prevent */}
 //       <MountOrUnmount onIncrease={handleUP}/>
 //       <h2>{count}</h2>
-
+//     </div>
 
 
 // -------------------------------------------------------------------------- //
@@ -281,23 +280,336 @@ import MountOrUnmount from './MountOrUnmount';
 
 //-----------------------------------------------------------------------------//
 
-// hook useMemo(): giup tranh thuc hien mot logic khong can thiet trong function
-// component 
-function App() {
-  const [count, setCount] = useState(0)
+// // hook useMemo(): giup tranh thuc hien mot logic khong can thiet trong function
+// // component 
+// function App() {
+//   const [name, setName] = useState('')
+//   const [price, setPrice] = useState('')
+//   const [products, setProducts] = useState([])
+//   const nameRef = useRef()
 
-  const handleUP = useCallback(() => {
-    setCount(previous => previous + 1)
-  }, [])
+//   const handleSubmit = () => {
+//     setProducts([...products, {
+//       name,
+//       // price: Number(price)
+//       // price: parseInt(price)
+//       price: +price
+//     }])
+//     setName('')
+//     setPrice('')
+//     nameRef.current.focus() // focus vao input
+//   }
 
-  return (
+//   // const total = products.reduce((result, product) => {
+//   //   console.log("Bi tinh lai...")
+//   //   return result + product.price
+//   // }, 0)
+
+//   const total = useMemo(() => {
+//     const result = products.reduce((result, product) => {
+//       console.log("Bi tinh lai...")
+//       return result + product.price
+//     }, 0)
+//     return result
+//   }, [products])
+
+//   return (
+//     <div className="App">
+//       <input value={name} ref={nameRef}
+//         placeholder='Enter name...'
+//         onChange={e => setName(e.target.value)}/><br/>
+//       <input value={price} placeholder='Enter price...'
+//         onChange={e => setPrice(e.target.value)}/><br/>
+//       <button onClick={handleSubmit}>Add</button><br/>
+//       Total: {total}
+//       <ul>{products.map((product,index) => <li key={index}>
+//           {product.name} - {product.price}
+//         </li>)}
+//       </ul>
+//     </div>
+//   );
+// }
+
+
+// -------------------------------------------------------------------------- //
+
+// useReducer: lam dc nhu useState
+// useState (state don gian) vs useReducer (su dung khi state phuc tap
+// state la Array, object nhieu tang, nhieu lop)
+
+// useReducer: up and down button example
+// useState: initial state (0) => action: up (state+1), down (state-1)
+// useReducer: initial state (0) => action: up (state+1), down (state-1)
+// => reducer => dispatch
+
+// // initial state 
+// const initState = 0
+
+// // action
+// const UP_ACTION = 'up'
+// const DOWN_ACTION = 'down'
+
+// // reducer 
+// const reducer = (state, action) => {
+//   console.log('reducer run...')
+//   switch(action){
+//     case UP_ACTION: return state + 1
+//     case DOWN_ACTION: return state - 1
+//     default: throw new Error('Invalid action')
+//   }
+// }
+// // dispatch
+
+// function App() {
+//   const [count, dispatch] = useReducer(reducer, initState)
+  
+//   return (
+//     <div className="App">
+//       <h1>{count}</h1>
+//       <button onClick={() => dispatch(UP_ACTION)}>UP</button>
+//       <button onClick={() => dispatch(DOWN_ACTION)}>DOWN</button>
+//       </div>
+//   );
+// }
+
+
+// -------------------------------------------------------------------------- //
+
+// // todo app with useReducer()
+// // initial state 
+// const initState = { job: '', jobs: [], }
+
+// // action
+// const SET_JOB = 'set_job'
+// const ADD_JOB = 'add_job'
+// const DELETE_JOB = 'delete_job'
+// const setJob = payload => {
+//   return {
+//     type: SET_JOB, 
+//     payload
+//   }
+// }
+// const addJob = payload => {
+//   return {
+//     type: ADD_JOB, 
+//     payload
+//   }
+// }
+// const deleteJob = payload => {
+//   return {
+//     type: DELETE_JOB, 
+//     payload
+//   }
+// }
+
+// // reducer 
+// const reducer = (state, action) => {
+//   let newState
+//   console.log('action: ', action)
+//   console.log('previous state: ', state)
+
+//   switch(action.type){
+//     case SET_JOB:
+//       newState = { 
+//         ...state, 
+//         job: action.payload, 
+//       }
+//       break
+//       case ADD_JOB:
+//         newState = { 
+//           ...state, 
+//           jobs: [...state.jobs, action.payload]
+//         }
+//         break
+//       case DELETE_JOB:
+//         // not working
+//         // const newjobs = [...state.jobs].splice(action.payload, 1)
+//         const newjobs = [...state.jobs]
+//         newjobs.splice(action.payload, 1)
+//         newState = {
+//           ...state,
+//           jobs: newjobs
+//         }
+//         break
+//     default: throw new Error('Invalid action.')
+//   }
+//   console.log('new state: ', newState)
+//   return newState
+// }
+// // dispatch
+
+// function App() {
+//   const inputRef = useRef()
+//   // co the tach phan reducer, initState ra file js rieng de de
+//   // quan ly
+//   const [state, dispatch] = useReducer(reducer, initState)
+//   const { job, jobs } = state
+
+//   const handleSubmit = () => {
+//     dispatch(addJob(job))
+//     dispatch(setJob(''))
+//     inputRef.current.focus()
+//   }
+//   return (
+//     <div className="App">
+//       <h3>Todo</h3>
+//       <input value={job} placeholder='Enter todo...' 
+//         onChange={e => dispatch(setJob(e.target.value))}
+//         ref={inputRef}/>
+//       <button onClick={handleSubmit}>Add</button>
+//       <ul>
+//         {jobs.map((job,index) => <li key={index}>
+//             {job}
+//             <span onClick={() => dispatch(deleteJob(index))}>
+//               &times;</span>
+//           </li>
+//         )}
+//       </ul>
+//     </div>
+//   );
+// }
+
+
+// -------------------------------------------------------------------------- //
+
+// // tach ung dung todo (useReducer) ra thanh component rieng
+// import TodoApp from './todo'
+// function App(){
+//   return <TodoApp />
+// }
+
+
+// -------------------------------------------------------------------------- //
+
+// // react context & useContext() hook
+// // theme dark/light example
+// // componentA => componentB => componentC
+// // create context (tao pham vi de truyen data trong pham vi do)
+// // => provider (nhan data) => consumer (nhan data tu componentC)
+// import ComponentB from './ComponentB';
+// import { useContext } from 'react'
+// import { ThemeContext } from './ThemeContext'
+
+// function App(){
+//   const context = useContext(ThemeContext)
+//   return(
+//     <div className="App">
+//       <button onClick={context.toggleTheme}>
+//         Toggle theme
+//       </button>
+//       <ComponentB/>
+//     </div>)
+// }
+
+
+// // -------------------------------------------------------------------------- //
+
+// // react context & useContext() hook
+// // todo app example
+// import { useStore, actions } from './store';
+
+// function App(){
+//   const inputRef = useRef()
+//   const [state, dispatch] = useStore()
+//   const handleClick = () => {
+//     dispatch(actions.addTodo(state.todoInput))
+//     dispatch(actions.setTodoInput(''))
+//     inputRef.current.focus()
+//   }
+//   return(
+//     <div className="App">
+//       <input value={state.todoInput} placeholder="Enter todo..."
+//         onChange={e => {
+//           dispatch(actions.setTodoInput(e.target.value))
+//         }} ref={inputRef}/>
+//       <button onClick={handleClick}>ADD</button>
+//       {state.todos.map((todo, index) => <li key={index}>{todo}</li>)}
+//     </div>)
+// }
+
+
+// // -------------------------------------------------------------------------- //
+
+// // useImparativeHandle() hook: bao toan tinh dong goi, tinh
+// // toan ven cua du lieu
+// // play video from local example
+// import Video from './Video';
+// function App(){
+//   const videoRef = useRef()
+//   const handlePlay = () => {
+//     videoRef.current.play()
+//   }
+//   const handlePause = () => {
+//     videoRef.current.pause()
+//   }
+//   return(
+//     <div className="App">
+//       <Video ref={videoRef}/>
+//       <button onClick={handlePlay}>play</button>
+//       <button onClick={handlePause}>pause</button>
+//     </div>)
+// }
+
+
+// -------------------------------------------------------------------------- //
+
+// // CSS trong du an ReactJS
+// // development: npm start => css internal
+// // production: npm run build => CSS external
+// import './App.css';
+// // thuc te dung cach nay
+// import Heading from './components/Heading'
+// import Paragraph from './components/Paragraph'
+// import GlobalStyle from './components/GlobalStyle'
+// import Button from './components/Button'
+
+// function App(){
+  
+//   return(
+//     <GlobalStyle>
+//       <div className="App">
+//         <h1 className='heading'>Using CSS</h1>
+//         <Heading />
+//         <Paragraph />
+//         <Button /> <br/>
+//         <Button primary /> <br/>
+//         <Button primary disable />
+//       </div>
+//       { /* Su dung css global mang tinh ke thua */}
+//       <div className="d-flex">
+//         <div>content 1</div>
+//         <div>content 2</div>
+//       </div>
+//     </GlobalStyle>)
+// }
+
+
+// // -------------------------------------------------------------------------- //
+
+// learn react router
+// Link: apply SPA page
+import { Routes, Route, Link } from 'react-router-dom'
+import HomePage from './react_router_pages/Home'
+import ContactPage from './react_router_pages/Contact'
+import NewsPage from './react_router_pages/News'
+
+function App(){
+  return(
     <div className="App">
-      {/* component MountOrUnmount dc re-render nhieu lan => use memo to prevent */}
-      <MountOrUnmount onIncrease={handleUP}/>
-      <h2>{count}</h2>
-      </div>
-  );
+      <h1>react router</h1>
+      <nav>
+        <ul>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/news'>News</Link></li>
+          <li><Link to='/contact'>Contact</Link></li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/news" element={<NewsPage/>}/>
+        <Route path="/contact" element={<ContactPage/>}/>
+      </Routes>
+    </div>)
 }
-
 
 export default App;

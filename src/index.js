@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from './ThemeContext'
+import { StoreProvider } from './store';
 
 // Fake comments
 function emitComment(id) {
@@ -19,9 +22,31 @@ emitComment(1)
 emitComment(2)
 emitComment(3)
 
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
+// // light/dark theme example
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <ThemeProvider>
+//       <App />
+//     </ThemeProvider>
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
+// todo app context provider example
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StoreProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
